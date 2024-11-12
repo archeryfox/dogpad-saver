@@ -62,7 +62,9 @@ app.get('/backups', (req, res) => {
 
         // Фильтруем только .sql или другие форматы файлов бекапа
         const backupFiles = files.filter(file => file.endsWith('.db') || file.endsWith('.zip')).map(fileName => {
-            return `${req.protocol}://${req.get('host')}/backups/${encodeURIComponent(fileName)}`
+            return `${req.protocol === 'http' && req.get('host') !== 'localhost' 
+                ? 'https' 
+                : req.protocol}://${req.get('host')}/backups/${encodeURIComponent(fileName)}`
         });
         res.json(backupFiles);
     });
