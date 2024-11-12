@@ -35,7 +35,7 @@ app.get('/logs', (req, res) => {
         }
 
         // Фильтруем только .log файлы
-        const logFiles = files.filter(file => file.endsWith('.log')).map(flname => `${req.protocol}://${req.get('host')}${req.originalUrl}${flname}`);
+        const logFiles = files.filter(file => file.endsWith('.log')).map(flname => `${req.protocol}://${req.get('host')}${req.originalUrl}/${flname}`);
         res.json(logFiles);
     });
 });
